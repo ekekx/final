@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  {% include 'html/head.html' %}
+  <style>
+    img {
+      border: 5px solid yellow; /* Adjust the border width and color as needed */
+    }
+    /* Add this style to increase font size and center align text in all sections */
+    section {
+      text-align: center;
+    }
+
+    section p {
+      font-size: 1.5em; /* Adjust the font size as needed */
+    }
+  </style>
+</head>
+
+<body>
+
+  <div class="container mt-2">
+    <section id="menu" class="rounded-1">
+      {% include '/html/menu.html' %}
+    </section>
+
+    <section id="main-page2" class="container my-5">
+      <div class="row">
+        <div class="col-lg-12 mb-3">
+          <div class="card" style="width: 100%;">
+            <img src="/images/tem0.png" class="card-img-top" style="height:30rem">
+            <div class="card-body">
+              <p class="card-text py-3">
+                MakeProblem은 파일을 바탕으로 문제를 제작합니다.<br>
+                기존 파일을 사용하거나 새로운 파일을 업로드하세요!
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-lg-12 mb-3">
+          <div class="card" style="width: 100%;">
+            <img src="/images/tem1.png" class="card-img-top" style="height:30rem">
+            <div class="card-body">
+              <p class="card-text py-3">
+                선택한 파일에 대해 AI와 대화하세요!<br>
+                EX: "해수의 물리적 성질에 대해 설명해줘"
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-lg-12 mb-3">
+          <div class="card" style="width: 100%;">
+            <img src="/images/tem2.png" class="card-img-top" style="height:30rem">
+            <div class="card-body ">
+              <p class="card-text py-3">
+                AI에게 문제 제작을 부탁하세요! 빈칸넣기, 객관식, 단답형, 서술형 모두 가능합니다!<br>
+                EX: "해수의 물리적 성질에 대한 객관식 문제를 만들어줘"
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </section>
+
+    {% include 'html/bottom.html' %}
+  </div>
+
+</body>
+<script src="/js/function.js"></script>
+<script src="/js/theme-color.js"></script>
+
+</html>
