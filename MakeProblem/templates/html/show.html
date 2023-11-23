@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="ko" data-bs-theme="auto">
+
+<head>
+    {% include '/html/head.html' %}
+</head>
+
+<style>
+    body {
+        font-family: 'Nanum Gothic';
+        font-size: 1.2em !important;
+    }
+
+    html[data-bs-theme='light'] * {
+        color: rgb(30, 30, 30);
+    }
+
+    html[data-bs-theme='dark'] * {
+        color: rgb(200, 200, 200);
+        background-color: rgb(7, 35, 55);
+    }
+
+    .bottom {
+        font-size: 0.9em
+    }
+
+    @media (max-width: 500px) {
+        body {
+            font-size: 0.85em;
+        }
+
+        .form-control {
+            font-size: 1em !important;
+        }
+
+        .bottom {
+            font-size: 0.7em !important;
+        }
+    }
+</style>
+
+<body>
+
+    <div class="container mt-1">
+        <section id="menu" class="rounded-1 mt-2 bg-warning">
+            {% include '/html/menu.html' %}
+        </section>
+        <section id="chatSetup" class="d-flex justify-content-between mt-2">
+            <div>
+                <span>
+                    <select id="bg-theme" class="p-2 border-0">
+                        <option value="light">light</option>
+                        <option value="dark">dark</option>
+                    </select>
+                </span>
+            </div>
+        </section>
+
+        <div class="row">
+            <div class="col-md-6">
+                <section id="main-page" class="card my-1 text-center">
+                    <h1>파일 선택</h1>
+                    <form action="/chat" method="get"
+                        class="d-flex justify-content-center align-items-center flex-column">
+                        <select name="selected_file" class="mb-2">
+                            {% for file in files %}
+                            <option value="{{ file }}">{{ file }}</option>
+                            {% endfor %}
+                        </select>
+                        <input type="submit" value="Submit" class="btn btn-primary">
+                    </form>
+                </section>
+            </div>
+
+            <div class="col-md-6">
+                <section id="main-page" class="card my-1 text-center">
+                    <h1>파일 업로드</h1>
+                    <form action="/uploader" method="post" enctype="multipart/form-data"
+                        class="d-flex justify-content-center align-items-center flex-column">
+                        <input type="file" name="file" id="file" class="mb-2" accept="application/pdf">
+                        <input type="submit" value="Upload" class="btn btn-primary">
+                    </form>
+                </section>
+            </div>
+        </div>
+        {% include '/html/bottom.html' %}
+    </div>
+
+</body>
+<script src="/js/function.js"></script>
+<script>
+    $(document).ready(function() {
+    
+    // "bg-theme" select box의 값 변경 이벤트 핸들러를 설정합니다.
+    $('#bg-theme').change(function() {
+           var selectedTheme = $(this).val(); // 선택된 테마 값을 가져옵니다.
+           $('html').attr('data-bs-theme', selectedTheme); // HTML 태그에 테마 속성을 설정합니다.
+           localStorage.setItem('theme', selectedTheme); // 선택된 테마를 localStorage에 저장합니다.
+           if ( selectedTheme=="dark"){
+                   $("#menu").removeClass("bg-warning")
+               } else {
+                   $("#menu").addClass("bg-warning")
+               }
+       });
+
+       // 페이지 로딩 시 저장된 테마를 적용합니다.
+       var currentTheme = localStorage.getItem('theme'); // 저장된 테마를 가져옵니다.
+           currentTheme= currentTheme ? currentTheme:'light'
+       if (currentTheme) {
+           $('#bg-theme').val(currentTheme); // select box의 값을 설정합니다.
+           $('html').attr('data-bs-theme', currentTheme); // HTML 태그에 테마 속성을 설정합니다.
+       } 
+
+   var savedAiMode = localStorage.getItem('ai_Mode');
+   if (savedAiMode) { $("#ai_mode").val(savedAiMode);} 
+
+   // 윈도우 크기가 변경될 때마다 높이를 업데이트합니다.
+   $(window).resize(updateChatHeight);
+   // 초기 로딩 시에도 #chat 요소의 높이를 설정합니다.
+   updateChatHeight();
+});
+</script>
+</html>
